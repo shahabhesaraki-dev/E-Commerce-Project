@@ -186,7 +186,12 @@ const CartPage = () => {
                   return (
                     <ProductWrapper key={index}>
                       <ImageContainer>
-                        <Image src={product.imageSrc} />
+                        <Image
+                          onClick={() => {
+                            history.push(`/items/${product._id}`);
+                          }}
+                          src={product.imageSrc}
+                        />
                       </ImageContainer>
                       <DetailSection>
                         <Title>
@@ -464,6 +469,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   width: 100px;
   height: 100px;
+  cursor: pointer;
 `;
 
 const Title = styled.h1`
