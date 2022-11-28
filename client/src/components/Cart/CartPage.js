@@ -40,7 +40,10 @@ const CartPage = () => {
       })
       .then((response) => {
         if (response.status === 200) {
-          history.push("/confirmation", productsInCart);
+          history.push("/confirmation", {
+            productInCart: productsInCart,
+            totalPrice: sumAll,
+          });
           window.localStorage.removeItem("cartItems");
           setCartIconQuantity(1);
         } else {

@@ -18,9 +18,12 @@ const ConfirmationPage = () => {
   };
 
   const productsInCart = useLocation();
+
+  console.log(productsInCart);
+
   const productsWithSale =
     productsInCart &&
-    productsInCart.state.map((product) => {
+    productsInCart.state.productInCart.map((product) => {
       // Check if the product is on sale
       const saleCheck =
         isSaleLoaded &&
@@ -51,7 +54,7 @@ const ConfirmationPage = () => {
 
         <OrderDetails>
           <OrderNumberWrapper>
-            <OrderNumberText>Order:</OrderNumberText>
+            <OrderNumberText>Order number:</OrderNumberText>
             <OrderNumber>{"#" + getRandomKey()}</OrderNumber>
           </OrderNumberWrapper>
           {productsWithSale.map((product) => {
@@ -65,6 +68,7 @@ const ConfirmationPage = () => {
             return (
               <ItemsPurchased key={product._id}>
                 <ItemWrapper>
+                  <Image src={product.imageSrc} />
                   <ItemName>{product.name}</ItemName>
                   <PriceWrapper>
                     <Quantity>
@@ -82,9 +86,47 @@ const ConfirmationPage = () => {
             );
           })}
 
+          <ItemsPurchased>
+            <TaxItemWrapper>
+              <ItemName>Tax</ItemName>
+              <PriceWrapper>
+                <Price>
+                  ${(productsInCart.state.totalPrice * 0.15).toFixed(2)}
+                </Price>
+              </PriceWrapper>
+            </TaxItemWrapper>
+          </ItemsPurchased>
+
+          {productsInCart.state.totalPrice < 100 ? (
+            <ItemsPurchased>
+              <ItemWrapper>
+                <ItemName>Shipping(Tax free)</ItemName>
+                <PriceWrapper>
+                  <Price>$25</Price>
+                </PriceWrapper>
+              </ItemWrapper>
+            </ItemsPurchased>
+          ) : (
+            <ItemsPurchased>
+              <ItemWrapper>
+                <ItemName>Shipping</ItemName>
+                <PriceWrapper>
+                  <Price>$0</Price>
+                </PriceWrapper>
+              </ItemWrapper>
+            </ItemsPurchased>
+          )}
+
           <TotalWrapper>
             <Total>TOTAL</Total>
-            <TotalPrice>${total.toFixed(2)}</TotalPrice>
+            <TotalPrice>
+              $
+              {productsInCart.state.totalPrice > 100
+                ? (total + productsInCart.state.totalPrice * 0.15).toFixed(2)
+                : (total + productsInCart.state.totalPrice * 0.15 + 25).toFixed(
+                    2
+                  )}
+            </TotalPrice>
           </TotalWrapper>
         </OrderDetails>
       </Container>
@@ -138,7 +180,6 @@ const Total = styled.span`
 const Quantity = styled.span`
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 700;
   font-size: 16px;
   line-height: 113.5%;
   margin-right: 50px;
@@ -149,7 +190,6 @@ const Price = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  /* line-height: 113.5%; */
 `;
 
 const ItemName = styled.p`
@@ -164,7 +204,16 @@ const ItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  /* align-items: center; */
+  padding: 5px 0px;
   border-bottom: 1px solid #e6e6e6;
+`;
+
+const TaxItemWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 0px;
 `;
 
 const ItemsPurchased = styled.div`
@@ -177,6 +226,7 @@ const OrderNumber = styled.span`
   font-weight: 400;
   font-size: 14px;
   margin-left: 10px;
+  letter-spacing: 1px;
 `;
 const OrderNumberText = styled.h2`
   font-family: "Poppins";
@@ -231,6 +281,12 @@ const OrderConfirmed = styled.div`
   justify-content: center;
   margin-top: 80px;
   margin-bottom: 50px;
+`;
+
+const Image = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-top: -15px;
 `;
 
 export default ConfirmationPage;

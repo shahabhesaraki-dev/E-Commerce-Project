@@ -19,8 +19,6 @@ import styled from "styled-components";
 
 const Category = () => {
   const { categoryName } = useParams();
-
-  console.log(categoryName);
   const { products, allSaleProducts, isSaleLoaded, categories } =
     useContext(HomeContext);
 
