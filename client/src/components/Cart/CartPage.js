@@ -210,7 +210,7 @@ const CartPage = () => {
                         <QuantitySection>
                           <FirstSquare
                             onClick={() => {
-                              const existedProduct = [];
+                              const existingProduct = [];
                               for (let i = 0; i < cartItems.length; i++) {
                                 if (cartItems[i]._id === product._id) {
                                   if (
@@ -220,7 +220,7 @@ const CartPage = () => {
                                   ) {
                                     setCartIconQuantity(cartIconQuantity - 1);
                                     setAllItemsAmount(allItemsAmount - 1);
-                                    existedProduct.push({
+                                    existingProduct.push({
                                       ...cartItems[i],
                                       selectedItem:
                                         cartItems[i].selectedItem - 1,
@@ -230,7 +230,7 @@ const CartPage = () => {
                                     return null;
                                   }
 
-                                  cartItems.push(existedProduct[0]);
+                                  cartItems.push(existingProduct[0]);
                                   localStorage.setItem(
                                     "cartItems",
                                     JSON.stringify(cartItems)
@@ -240,7 +240,7 @@ const CartPage = () => {
                               quality.forEach((item, index, arr) => {
                                 if (item._id === product._id) {
                                   arr.splice(index, 1);
-                                  setQuality([...quality, existedProduct[0]]);
+                                  setQuality([...quality, existingProduct[0]]);
                                 }
                               });
                             }}
@@ -261,7 +261,7 @@ const CartPage = () => {
 
                           <ThirdSquare
                             onClick={() => {
-                              const existedProduct = [];
+                              const existingProduct = [];
                               for (let i = 0; i < cartItems.length; i++) {
                                 if (cartItems[i]._id === product._id) {
                                   if (
@@ -271,7 +271,7 @@ const CartPage = () => {
                                     setCartIconQuantity(cartIconQuantity + 1);
                                     setAllItemsAmount(allItemsAmount + 1);
 
-                                    existedProduct.push({
+                                    existingProduct.push({
                                       ...cartItems[i],
                                       selectedItem:
                                         cartItems[i].selectedItem + 1,
@@ -281,7 +281,7 @@ const CartPage = () => {
                                     return null;
                                   }
 
-                                  cartItems.push(existedProduct[0]);
+                                  cartItems.push(existingProduct[0]);
                                   localStorage.setItem(
                                     "cartItems",
                                     JSON.stringify(cartItems)
@@ -291,7 +291,7 @@ const CartPage = () => {
                               quality.forEach((item, index, arr) => {
                                 if (item._id === product._id) {
                                   arr.splice(index, 1);
-                                  setQuality([...quality, existedProduct[0]]);
+                                  setQuality([...quality, existingProduct[0]]);
                                 }
                               });
                             }}
@@ -324,23 +324,28 @@ const CartPage = () => {
                   </FlexDiv>
 
                   <FlexDiv>
-                    <div>SHIPPING</div>
-                    <div>$0</div>
+                    <div>SHIPPING(TAX FREE)</div>
+                    <div>${sumAll >= 100 ? 0 : 25}</div>
                   </FlexDiv>
 
                   <FlexDiv>
-                    <div>TAX</div>
-                    <div>$0</div>
+                    <div>TAX(%15)</div>
+                    <div>{`$${((sumAll * 15) / 100).toFixed(2)}`}</div>
                   </FlexDiv>
 
                   <Line />
 
                   <FlexDiv>
                     <div>TOTAL</div>
-                    <div>${sumAll}</div>
+                    <div>{`$${
+                      sumAll >= 100
+                        ? (sumAll * 1.15).toFixed(2)
+                        : (sumAll * 1.15 + 25).toFixed(2)
+                    }`}</div>
                   </FlexDiv>
 
                   <Button onClick={() => handleCheckout()}>CHECKOUT</Button>
+                  <H4>*Free Shipping on all orders over $100.</H4>
                 </SummarySection>
               </SummaryContainer>
             ) : (
@@ -578,5 +583,12 @@ const SalePriceContainer = styled.div`
 `;
 
 const PriceContainer = styled.div``;
+
+const H4 = styled.h4`
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 12px;
+  margin-top: 20px;
+`;
 
 export default CartPage;
