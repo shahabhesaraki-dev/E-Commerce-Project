@@ -3,7 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const PORT = proccess.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 const {
   getProducts,
