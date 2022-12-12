@@ -26,7 +26,7 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     localStorage.setItem("confirmedBuy", JSON.stringify(cartItems));
-    fetch("/api/update-stock", {
+    fetch("https://myecommerceapps.herokuapp.com/api/update-stock", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const CartPage = () => {
   useEffect(() => {
     if (cartItems && cartItems.length > 0) {
       const uniqueValues = [...new Set(cartItems.map((item) => item._id))];
-      fetch("/api/get-products-from-ids", {
+      fetch("https://myecommerceapps.herokuapp.com/api/get-products-from-ids", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
