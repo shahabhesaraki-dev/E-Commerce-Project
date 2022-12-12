@@ -20,7 +20,9 @@ const ItemPage = () => {
 
   useEffect(() => {
     const fetchSpecificProduct = async () => {
-      const response = await fetch(`/api/get-product/${id}`);
+      const response = await fetch(
+        `https://myecommerceapps.herokuapp.com/api/get-product/${id}`
+      );
       const result = await response.json();
       setSpecificProduct(result.data);
       result.status !== 200 && SetError(result.message);

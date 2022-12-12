@@ -23,7 +23,7 @@ export const HomeContextProvider = ({ children }) => {
   const [cartIconQuantity, setCartIconQuantity] = useState(totalQuantity);
 
   useEffect(() => {
-    fetch("/api/get-products")
+    fetch("https://myecommerceapps.herokuapp.com/api/get-products")
       .then(async (res) => res.json())
       .then(async (data) => {
         setProducts(data.data);
@@ -34,7 +34,7 @@ export const HomeContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    fetch("/api/get-categories")
+    fetch("https://myecommerceapps.herokuapp.com/api/get-categories")
       .then((res) => res.json())
       .then((data) => {
         setCategories(data.data);
@@ -46,14 +46,18 @@ export const HomeContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchRecommendedProducts = async () => {
-      const response = await fetch("/api/get-recommended-products");
+      const response = await fetch(
+        "https://myecommerceapps.herokuapp.com/api/get-recommended-products"
+      );
       const result = await response.json();
       setRecomendedProducts(result.data);
       setIsRecomendedLoaded(true);
     };
 
     const fetchSaleProducts = async () => {
-      const response = await fetch("/api/get-sale-products");
+      const response = await fetch(
+        "https://myecommerceapps.herokuapp.com/api/get-sale-products"
+      );
       const result = await response.json();
       setSaleProducts(result.data.saleProducts);
       setAllSaleProducts(result.data.allSaleProducts);
@@ -61,7 +65,9 @@ export const HomeContextProvider = ({ children }) => {
     };
 
     const fetchPopularProducts = async () => {
-      const response = await fetch("/api/get-popular-products");
+      const response = await fetch(
+        "https://myecommerceapps.herokuapp.com/api/get-popular-products"
+      );
       const result = await response.json();
       setPopularProducts(result.data);
       setIsPopularLoaded(true);
