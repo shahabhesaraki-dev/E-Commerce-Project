@@ -45,7 +45,7 @@ const Header = () => {
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
                   history.push(`/search/${searchText}`);
-                  window.location.reload();
+                  // window.location.reload();
                 }
               }}
             />
