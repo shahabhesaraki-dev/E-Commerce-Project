@@ -41,7 +41,9 @@ const SearchPage = () => {
 
   useEffect(() => {
     const findProducts = async () => {
-      const response = await fetch(`/api/find-products/${query}`);
+      const response = await fetch(
+        `https://myecommerceapps.herokuapp.com/api/find-products/${query}`
+      );
       const result = await response.json();
       result.status === 200
         ? setSearchResults(result.data)
