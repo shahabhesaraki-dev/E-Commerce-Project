@@ -2,6 +2,7 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const cors = required("cors");
 
 const PORT = process.env.PORT || 4000;
 
@@ -19,6 +20,7 @@ const {
 } = require("./handlers");
 
 express()
+  .use(cors({ origin: "https://myecommerceapps.netlify.app" }))
   .use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Methods",
