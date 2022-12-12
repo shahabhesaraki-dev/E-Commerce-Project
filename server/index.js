@@ -2,7 +2,8 @@
 
 const express = require("express");
 const morgan = require("morgan");
-const cors = required("cors");
+const cors = require("cors");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 4000;
 
@@ -50,5 +51,12 @@ express()
   .post("/api/get-products-from-ids", getProductsFromIds)
 
   .patch("/api/update-stock", updateStock)
+
+  .get("*", (req, res) => {
+    res.status(404).json({
+      status: 404,
+      message: "This is obviously not what you are looking for.",
+    });
+  })
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
