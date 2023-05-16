@@ -52,4 +52,5 @@ const Line = styled.hr`
   border: 1px solid var(--lightest-grey);
   position: absolute;
 `;
+
 export default Products;

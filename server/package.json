@@ -3,13 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "16.x",
-    "npm": "6.14.7"
-  },
   "scripts": {
-    "start": "node index.js",
-    "dev:backend": "nodemon index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

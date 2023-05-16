@@ -21,7 +21,7 @@ const {
 } = require("./handlers");
 
 express()
-  .use(cors({ origin: "https://myecommerceapps.netlify.app" }))
+  .use(cors())
   .use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Methods",
